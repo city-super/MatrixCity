@@ -1,8 +1,9 @@
 # (ICCV 2023) MatrixCity: A Large-scale City Dataset for City-scale Neural Rendering and Beyond.
 Yixuan Li, Lihan Jiang, Linning Xu, Yuanbo Xiangli, Zhenzhi Wang, Dahua Lin, Bo Dai
+
 The Chinese University of Hong Kong, Shanghai AI Laboratory
 
-
+![teaser](figures/teaser.png)
 
 # Citation
 
