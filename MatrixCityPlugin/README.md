@@ -31,4 +31,4 @@ Please see [Tutorial](/docs/Tutorial.md) for a demonstration.
 
 ### Python modules are defined in [Content/Python](/Content/Python/) folder.
 
-### C++ modules are defined in [Source/XRFeitoriaGear](/Source/XRFeitoriaGear/) folder.
+### C++ modules are defined in [Source/MatrixCityPlugin](/Source/MatrixCityPlugin/) folder.

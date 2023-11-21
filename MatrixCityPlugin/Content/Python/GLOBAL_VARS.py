@@ -26,7 +26,7 @@ def get_plugin_path() -> List[Path]:
     return PROJECT_ROOT, PLUGIN_ROOT, PLUGIN_PYTHON_ROOT, LEVEL_INFO_JSON
 
 
-PLUGIN_NAME = 'XRFeitoriaGear'
+PLUGIN_NAME = 'MatrixCityPlugin'
 
 MATERIAL_PATHS = {
     'depth': f'/{PLUGIN_NAME}/Materials/MRQ/PPM_depth_EXR',

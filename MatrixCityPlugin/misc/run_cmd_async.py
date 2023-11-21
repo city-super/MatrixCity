@@ -201,7 +201,7 @@ def main(config_file: str='misc/user.json'):
     if ' ' in ue_project:
         raise ValueError(f"Found blanks in `ue_project` path. UE can't handle that. `ue_project`: {ue_project}")
 
-    # python_dir = Path(ue_project).parent / 'Plugins/XRFeitoriaGear/Content/Python'
+    # python_dir = Path(ue_project).parent / 'Plugins/MatrixCityPlugin/Content/Python'
     # python_script = python_dir / 'pipeline.py'
     python_script = Path(config['python_script']).resolve()
 

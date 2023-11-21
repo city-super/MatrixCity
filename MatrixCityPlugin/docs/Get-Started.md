@@ -83,7 +83,7 @@ You would get a result like:
 
 ---
 
-> This plugin will automatically set some project settings for ue project (see [Source/XRFeitoriaGear/Private/XRFeitoriaGear.cpp](../Source/XRFeitoriaGear/Private/XRFeitoriaGear.cpp) for details):
+> This plugin will automatically set some project settings for ue project (see [Source/MatrixCityPlugin/Private/MatrixCityPlugin.cpp](../Source/MatrixCityPlugin/Private/MatrixCityPlugin.cpp) for details):
 > 
 > - `URendererSettings->CustomDepthStencil = ECustomDepthStencil::EnabledWithStencil`
 > (same as `r.CustomDepth=3` in `Config/DefaultEngine.ini` under `[/Script/Engine.RendererSettings]`

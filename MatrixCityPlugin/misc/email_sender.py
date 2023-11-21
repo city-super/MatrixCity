@@ -36,7 +36,7 @@ class EmailSender:
             f"{datetime.datetime.now().isoformat()}"
         )
         message = MIMEText(body, 'plain', 'utf8')
-        message['From'] = f'XRFeitoriaGear<{self.email_user}>'
+        message['From'] = f'MatrixCityPlugin<{self.email_user}>'
         message['To'] = ','.join(self.receivers)
         message['Subject'] = f"[{self.output_name}] {phase} Finished: {seq_num}/{seq_num} @{platform.node()}"
         return message
@@ -54,7 +54,7 @@ class EmailSender:
             f"{datetime.datetime.now().isoformat()}"
         )
         message = MIMEText(body, 'plain', 'utf8')
-        message['From'] = f'XRFeitoriaGear<{self.email_user}>'
+        message['From'] = f'MatrixCityPlugin<{self.email_user}>'
         message['To'] = ','.join(self.receivers)
         message['Subject'] = f"[{self.output_name}] {phase}: {i_current}/{n_total} @{platform.node()}"
         return message

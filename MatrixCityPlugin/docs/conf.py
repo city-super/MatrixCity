@@ -17,9 +17,9 @@ sys.path.insert(0, os.path.abspath('../Content/Python'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'XRFeitoriaGear'
-copyright = '2022, meihaiyi'
-author = 'meihaiyi'
+project = 'MatrixCityPlugin'
+copyright = '2023 liyixuan; 2022, meihaiyi'
+author = 'liyixuan, meihaiyi'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'

@@ -1,4 +1,4 @@
-.. XRFeitoriaGear documentation master file, created by
+.. MatrixCityPlugin documentation master file, created by
    sphinx-quickstart on Fri Sep  2 17:12:45 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -25,7 +25,7 @@ Welcome to XRFeitoria-Gear's documentation!
 
 .. note::
 
-   ``XRFeitoriaGear``: A Synthetic Data Factory for Machine Learning
+   ``MatrixCityPlugin``: A Synthetic Data Factory for Machine Learning
 
 .. image:: pics/demo.gif
 

@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = 'misc'
-PLUGIN_NAME = 'XRFeitoriaGear'
+PLUGIN_NAME = 'MatrixCityPlugin'
 
 # from data.config import CfgNode
 
