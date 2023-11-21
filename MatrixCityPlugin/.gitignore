@@ -3,10 +3,10 @@
 # Byte-compiled / optimized / DLL files
 **/__pycache__/
 *.py[cod]
-*.json
+!*.json
 
 _*/
-Binaries/**
+!Binaries/**
 Intermediate/**
 
 !docs/**
