@@ -1,0 +1,13 @@
+yacs
+pydantic
+pandas
+numpy
+scipy
+requests
+tqdm
+rich
+sphinx
+sphinx-book-theme
+recommonmark
+# myst-parser
+# opencv-python

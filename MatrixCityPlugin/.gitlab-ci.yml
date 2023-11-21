@@ -1,0 +1,11 @@
+pages:
+  stage: deploy
+  script:
+    - rm -rf public
+    - cp -r ./docs/_build/html public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+

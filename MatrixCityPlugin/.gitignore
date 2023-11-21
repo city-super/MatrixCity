@@ -1,0 +1,12 @@
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+*.py[cod]
+!*.json
+
+_*/
+!Binaries/**
+Intermediate/**
+
+!docs/**

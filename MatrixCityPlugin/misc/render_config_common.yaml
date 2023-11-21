@@ -1,0 +1,29 @@
+_BASE_: render_config.yaml
+Output_Path: "E:/Datasets/tmp"
+
+Anti_Alias:
+    enable: false
+    spatial_samples: 8
+    temporal_samples: 8
+
+Render_Passes:
+    -
+        pass_name: 'rgb'
+        enable: true
+        ext: "jpeg"  # png, jpeg, bmp, exr
+    -
+        pass_name: 'depth'
+        enable: true
+        ext: "exr"
+    -
+        pass_name: 'mask'
+        enable: true
+        ext: "exr"
+    -
+        pass_name: 'optical_flow'
+        enable: true
+        ext: "exr"
+    -
+        pass_name: 'normal'
+        enable: true
+        ext: "png"

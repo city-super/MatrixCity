@@ -1,0 +1,5 @@
+yacs
+colorama
+psutil
+pywin32
+numpy
