@@ -29,15 +29,12 @@ def get_plugin_path() -> List[Path]:
 PLUGIN_NAME = 'MatrixCityPlugin'
 
 MATERIAL_PATHS = {
-    'depth': f'/{PLUGIN_NAME}/Materials/MRQ/PPM_depth_EXR',
-    'mask': f'/{PLUGIN_NAME}/Materials/MRQ/PPM_mask_MRQ',
-    'optical_flow': f'/{PLUGIN_NAME}/Materials/PPM_velocity',
+    'depth': f'/{PLUGIN_NAME}/Materials/PPM_depth_EXR',
     'diffuse': f'/{PLUGIN_NAME}/Materials/PPM_diffusecolor',
-    'normal': f'/{PLUGIN_NAME}/Materials/PPM_normal_map',
+    'normal': f'/{PLUGIN_NAME}/Materials/MovieRenderQueue_WorldNormal',
     'metallic': f'/{PLUGIN_NAME}/Materials/PPM_metallic',
     'roughness': f'/{PLUGIN_NAME}/Materials/PPM_roughness',
     'specular': f'/{PLUGIN_NAME}/Materials/PPM_specular',
-    'tangent': f'/{PLUGIN_NAME}/Materials/PPM_tangent',
     'basecolor': f'/{PLUGIN_NAME}/Materials/PPM_basecolor',
 }
 

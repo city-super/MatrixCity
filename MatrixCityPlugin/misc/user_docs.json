@@ -1,0 +1,5 @@
+{
+  "ue_command": "C:/Program Files/Epic Games/UE_5.0/Engine/Binaries/Win64/UnrealEditor-Cmd.exe",
+  "ue_project": "E:/Unreal_Projects/SFDemo/SFDemo.uproject",
+  "python_script": "misc/build_docs.py"
+}

@@ -1,0 +1,6 @@
+{
+  "ue_command": "C:/Program Files/Epic Games/UE_5.0/Engine/Binaries/Win64/UnrealEditor-Cmd.exe",
+  "ue_project": "C:/Users/liyix/Downloads/SFDemo/SFDemo.uproject",
+  "render_config": "misc/render_config_common.yaml",
+  "python_script": "Content/Python/pipeline.py"
+}
