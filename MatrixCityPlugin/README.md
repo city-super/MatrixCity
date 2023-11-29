@@ -1,5 +1,3 @@
-# XRFeitoria: A Synthetic Data Factory for Machine Learning
-
 ![](docs/pics/demo.gif)
 
 > It's for AI Researchers who have no experience with Unreal Engine, and want to create synthetic datasets.
@@ -13,11 +11,6 @@
 
 - [x] Test on Unreal Engine 4.27.3
 
-## [API Documentation](http://openxrlab.pages.gitlab.bj.sensetime.com/xrfeitoria/xrfeitoria-gear/)
-
-## Download releases
-
-[releases page](../../releases)
 
 # Get Started
 

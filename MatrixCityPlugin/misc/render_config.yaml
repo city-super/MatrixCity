@@ -1,13 +1,13 @@
 Resolution: [1920, 1080]
-Output_Path: "E:/Datasets/tmp"
+Output_Path: "D:/Dataset"
 
 File_Name_Format: "{sequence_name}/{render_pass}/{frame_number}"
 
 Motion_Blur: false
 Anti_Alias:
-    enable: false
+    enable: true
     spatial_samples: 8
-    temporal_samples: 8
+    temporal_samples: 1
 
 Render_Passes:
     -
@@ -19,21 +19,13 @@ Render_Passes:
         enable: false
         ext: "exr"
     -
-        pass_name: 'mask'
-        enable: false
-        ext: "exr"
-    -
-        pass_name: 'optical_flow'
-        enable: false
-        ext: "exr"
-    -
         pass_name: 'diffuse'
         enable: false
         ext: "png"
     -
         pass_name: 'normal'
         enable: false
-        ext: "png"
+        ext: "exr"
     -
         pass_name: 'metallic'
         enable: false
@@ -44,10 +36,6 @@ Render_Passes:
         ext: "png"
     -
         pass_name: 'specular'
-        enable: false
-        ext: "png"
-    -
-        pass_name: 'tangent'
         enable: false
         ext: "png"
     -
