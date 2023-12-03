@@ -4,7 +4,9 @@ from pydantic_model import SequenceKey
 import unreal
 from utils import *
 from utils_actor import *
-from GLOBAL_VARS import ENGINE_MAJOR_VERSION
+import math
+import numpy as np
+import random
 
 ################################################################################
 # misc
@@ -18,18 +20,14 @@ def get_sequence_fps(sequence: unreal.LevelSequence) -> float:
     return convert_frame_rate_to_fps(seq_fps)
     
 
-def get_animation_length(animation_asset: unreal.AnimSequence, seq_fps: float=30.) -> int:
-    if ENGINE_MAJOR_VERSION == 5:
-        # animation fps == sequence fps
+def get_animation_length(animation_asset: unreal.AnimSequence, seq_fps: Optional[float]=None) -> int:
+    anim_len = animation_asset.get_editor_property("number_of_sampled_frames")
+
+    if seq_fps:
         anim_frame_rate = animation_asset.get_editor_property("target_frame_rate")
         anim_frame_rate = convert_frame_rate_to_fps(anim_frame_rate)
-        assert anim_frame_rate == seq_fps, \
-            f"anim fps {anim_frame_rate} != seq fps {seq_fps}, this would cause animation interpolation."
-
-        anim_len = animation_asset.get_editor_property("number_of_sampled_frames")
-
-    elif ENGINE_MAJOR_VERSION == 4:
-        anim_len = round(animation_asset.get_editor_property("sequence_length") * seq_fps)
+        if anim_frame_rate != seq_fps:
+            anim_len = round(animation_asset.get_editor_property("sequence_length") * seq_fps)
 
     return anim_len
 
@@ -98,7 +96,7 @@ def set_transform_by_section(
 
 def set_transforms_by_section(
     trans_section: unreal.MovieScene3DTransformSection,
-    trans_keys: List[SequenceKey],
+    trans_keys: List[SequenceKey], 
     key_type: str = "CONSTANT",
 ) -> None:
     """set `loc & rot` keys to given `transform section`
@@ -507,81 +505,413 @@ def generate_sequence(
 
     return new_sequence
 
+def generate_train_box(line1, line2, z, current_frame):
+    
+    x11, y11, x12, y12=line1
+    x21, y21, x22, y22=line2
+    assert(y11==y12)
+    assert(y21==y22)
+    assert(x11==x21)
+    assert(x12==x22)
+    w=math.dist([x11, y11], [x12, y12])
+    h=math.dist([x11, y11], [x21, y21])
+    interval=4000 # train interval
+    w_instance=int(w/interval)+2
+    h_instance=int(h/interval)+1
+    x_start=np.linspace(x11, x12, w_instance)
+    y_start=np.linspace(y11, y12, w_instance)
+    x_end=np.linspace(x21, x22, w_instance)
+    y_end=np.linspace(y21, y22, w_instance)
+    camera_trans=[]
+    
+    # train
+    if z>25000:
+        pitch=-60
+    else:
+        pitch=-45
+    for i in range(w_instance):
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_start[i], y_start[i], z),
+            rotation=(0, pitch, 0)
+            )
+        )
+        current_frame=current_frame+h_instance
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_end[i], y_end[i], z),
+            rotation=(0, pitch, 0)
+            )
+        )
+        current_frame=current_frame+1
+    for i in range(w_instance):
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_start[i], y_start[i], z),
+            rotation=(0, pitch, 90)
+            )
+        )
+        current_frame=current_frame+h_instance
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_end[i], y_end[i], z),
+            rotation=(0, pitch, 90)
+            )
+        )
+        current_frame=current_frame+1
+    for i in range(w_instance):
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_start[i], y_start[i], z),
+            rotation=(0, pitch, 180)
+            )
+        )
+        current_frame=current_frame+h_instance
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_end[i], y_end[i], z),
+            rotation=(0, pitch, 180)
+            )
+        )
+        current_frame=current_frame+1
+    for i in range(w_instance):
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_start[i], y_start[i], z),
+            rotation=(0, pitch, 270)
+            )
+        )
+        current_frame=current_frame+h_instance
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_end[i], y_end[i], z),
+            rotation=(0, pitch, 270)
+            )
+        )
+        current_frame=current_frame+1
+    return camera_trans, current_frame
+
+def generate_test_box(line1, line2, z, current_frame):
+    
+    x11, y11, x12, y12=line1
+    x21, y21, x22, y22=line2
+    assert(y11==y12)
+    assert(y21==y22)
+    assert(x11==x21)
+    assert(x12==x22)
+    w=math.dist([x11, y11], [x12, y12])
+    h=math.dist([x11, y11], [x21, y21])
+    interval=4501 # test interval
+    w_instance=int(w/interval)+2
+    h_instance=int(h/interval)+1
+    x_start=np.linspace(x11, x12, w_instance)
+    y_start=np.linspace(y11, y12, w_instance)
+    x_end=np.linspace(x21, x22, w_instance)
+    y_end=np.linspace(y21, y22, w_instance)
+    camera_trans=[]
+    
+    # test
+    for i in range(w_instance):
+        pitch=np.random.randint(-60,-44,size=1)
+        yaw=np.random.randint(0,361,size=1)
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_start[i], y_start[i], z),
+            rotation=(0, pitch, yaw)
+            )
+        )
+        current_frame=current_frame+h_instance
+        camera_trans.append( 
+            SequenceKey(
+            frame=current_frame, 
+            location=(x_end[i], y_end[i], z),
+            rotation=(0, pitch, yaw)
+            )
+        )
+        current_frame=current_frame+1
+    return camera_trans, current_frame
+    
+
+def generate_train_line(point1, point2, z, yaw, current_frame, dense=False):
+
+    distance=math.dist(point1, point2)
+    if dense==True:
+        instance=int(distance/100)+1 # dense
+    else:
+        instance=int(distance/500)+1 # sparse
+
+    camera_trans=[]
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, yaw)
+        )
+    )
+    current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, 90+yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, 90+yaw)
+        )
+    )
+    current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, 180+yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, 180+yaw)
+        )
+    )
+    current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, 270+yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, 270+yaw)
+        )
+    )
+    current_frame=current_frame+1
+    # camera_trans.append(
+    #     SequenceKey(
+    #         frame=current_frame, 
+    #         location=(point1[0], point1[1], z),
+    #         rotation=(0, -90, yaw)
+    #     )
+    # )
+    # current_frame=current_frame+instance
+    # camera_trans.append(
+    #     SequenceKey(
+    #         frame=current_frame, 
+    #         location=(point2[0], point2[1], z),
+    #         rotation=(0, -90, yaw)
+    #     )
+    # )
+    # current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 90, yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 90, yaw)
+        )
+    )
+    current_frame=current_frame+1
+    return camera_trans, current_frame
+
+def generate_test_line(point1, point2, z, yaw, current_frame):
+    # for test
+    point1[0]=point1[0]+math.cos(math.radians(yaw))*570
+    point1[1]=point1[1]+math.sin(math.radians(yaw))*570
+    point2[0]=point2[0]-math.cos(math.radians(yaw))*570
+    point2[1]=point2[1]-math.sin(math.radians(yaw))*570
+    yaw=np.random.randint(0,90,size=1)
+
+    distance=math.dist(point1, point2)
+    instance = int(distance/4830)+1 # test
+
+    camera_trans=[]
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, yaw)
+        )
+    )
+    current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, 90+yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, 90+yaw)
+        )
+    )
+    current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, 180+yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, 180+yaw)
+        )
+    )
+    current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 0, 270+yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 0, 270+yaw)
+        )
+    )
+    current_frame=current_frame+1
+    # camera_trans.append(
+    #     SequenceKey(
+    #         frame=current_frame, 
+    #         location=(point1[0], point1[1], z),
+    #         rotation=(0, -90, yaw)
+    #     )
+    # )
+    # current_frame=current_frame+instance
+    # camera_trans.append(
+    #     SequenceKey(
+    #         frame=current_frame, 
+    #         location=(point2[0], point2[1], z),
+    #         rotation=(0, -90, yaw)
+    #     )
+    # )
+    # current_frame=current_frame+1
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point1[0], point1[1], z),
+            rotation=(0, 90, yaw)
+        )
+    )
+    current_frame=current_frame+instance
+    camera_trans.append(
+        SequenceKey(
+            frame=current_frame, 
+            location=(point2[0], point2[1], z),
+            rotation=(0, 90, yaw)
+        )
+    )
+    current_frame=current_frame+1
+    return camera_trans, current_frame
+
+
 def main():
     from datetime import datetime
 
     # pre-defined
-    level = '/Game/Maps/DefaultMap'
+    level = '/Game/Maps/Small_City_LVL'
     sequence_dir = '/Game/Sequences'
-    sequence_name = 'LS_' + datetime.now().strftime('%m%d_%H%M%S')
     seq_fps = 30
-    seq_length = 300
+    current_frame=0
+    
+    # exmaples for generating training and testing set for aerial data
+    sequence_name='aerial_train'
+    fov=45
+    camera_trans, current_frame=generate_train_box([-100000, 0, -12000, 0], [-100000, 38000, -12000, 38000], 15000, current_frame) # block 1
 
-    rp_asset = unreal.load_asset('/Game/RP_Character/rp_manuel_rigged_001_ue4/rp_manuel_rigged_001_ue4')
-    anim_asset = unreal.load_asset('/Game/RP_Character/00_Animations/rp_manuel_animated_001_dancing_ue4')
-    static_asset = unreal.load_asset('/Game/Meshes/Shape_QuadPyramid')
+    # sequence_name='aerial_test'
+    # fov=45
+    # camera_trans, current_frame=generate_test_box([-95000, 5000,-17000, 5000], [-95000, 33000, -17000, 33000], 15000, current_frame) # block 1 test
 
+    # exmaples for generating training(sparse/dense) and testing set for street data
+    # sequence_name='street_train'
+    # fov=90
+    # camera_trans=[]
+    # tmp_camera_trans, current_frame=generate_train_line([-85151.664062, 7755.524902], [-18491.283203, 46241.914062], 300, 30, current_frame)
+    # camera_trans.extend(tmp_camera_trans)
+    # tmp_camera_trans, current_frame=generate_train_line([-19102.925781, 46310.578125], [-10849.427734, 49813.980469], 300, 23, current_frame)
+    # camera_trans.extend(tmp_camera_trans)
+
+    # sequence_name='street_train_dense'
+    # fov=90
+    # camera_trans=[]
+    # tmp_camera_trans, current_frame=generate_train_line([-85151.664062, 7755.524902], [-18491.283203, 46241.914062], 300, 30, current_frame, dense=True)
+    # camera_trans.extend(tmp_camera_trans)
+    # tmp_camera_trans, current_frame=generate_train_line([-19102.925781, 46310.578125], [-10849.427734, 49813.980469], 300, 23, current_frame, dense=True)
+    # camera_trans.extend(tmp_camera_trans)
+    
+    # sequence_name='street_test'
+    # fov=90
+    # camera_trans=[]
+    # tmp_camera_trans, current_frame=generate_test_line([-85151.664062, 7755.524902], [-18491.283203, 46241.914062], 300, 30, current_frame)
+    # camera_trans.extend(tmp_camera_trans)
+    # tmp_camera_trans, current_frame=generate_test_line([-19102.925781, 46310.578125], [-10849.427734, 49813.980469], 300, 23, current_frame)
+    # camera_trans.extend(tmp_camera_trans)
+
+    seq_length=current_frame
     new_sequence = generate_sequence(sequence_dir, sequence_name, seq_fps, seq_length)
 
-    # add_level_to_sequence(
-    #     sequence,
-    #     persistent_level_path=level,
-    #     new_level_path='/Game/NewLevel1',
-    #     seq_fps=seq_fps,
-    #     seq_length=seq_length,
-    # )
-
-    camera_trans = [
-        SequenceKey(
-            frame=0, 
-            location=(500, 1500, 100),
-            rotation=(0, 0, 30)
-        )
-    ]
     add_spawnable_camera_to_sequence(
         new_sequence, 
         camera_trans=camera_trans,
-        camera_fov=120.,
-        seq_length=seq_length
-    )
-
-    rp_trans = [
-        SequenceKey(
-            frame=0, 
-            location=(1000, 1500, 0),
-            rotation=(0, 0, 0)
-        )
-    ]
-    add_spawnable_actor_to_sequence(
-        new_sequence, 
-        actor_asset=rp_asset,
-        actor_trans=rp_trans,
-        actor_stencil_value=1,
-        animation_asset=anim_asset,
-        seq_fps=seq_fps,
-        seq_length=seq_length
-    )
-
-    static_trans = [
-        SequenceKey(
-            frame=0, 
-            location=(1000, 2000, 100),
-            rotation=(0, 0, 30)
-        ),
-        SequenceKey(                  # multi-keys
-            frame=300,
-            location=(1000, 2000, 300),
-            rotation=(0, 0, 0)
-        )
-    ]
-    add_spawnable_actor_to_sequence(
-        new_sequence, 
-        actor_asset=static_asset,
-        actor_trans=static_trans,
-        actor_stencil_value=2,
-        seq_fps=seq_fps,
+        camera_class=unreal.CineCameraActor,
+        camera_fov=fov,
         seq_length=seq_length,
-        key_type="AUTO"
+        key_type="LINEAR"
     )
 
     unreal.EditorAssetLibrary.save_loaded_asset(new_sequence, False)

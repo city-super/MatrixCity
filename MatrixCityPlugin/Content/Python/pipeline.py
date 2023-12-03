@@ -22,14 +22,14 @@ def main(render_config_path: str = str(PLUGIN_ROOT / 'misc/render_config_common.
     log_msg_with_socket(PIEExecutor, f'[*] Created Sequence: {sequence_name}')
 
     # 3. render the sequence
-    render_config = CfgNode.load_yaml_with_base(render_config_path)
-    CustomMoviePipeline.clear_queue()
-    CustomMoviePipeline.add_job_to_queue_with_render_config(
-        level=level,
-        level_sequence=sequence_name,
-        render_config=render_config
-    )
-    CustomMoviePipeline.render_queue(executor=PIEExecutor)
+    # render_config = CfgNode.load_yaml_with_base(render_config_path)
+    # CustomMoviePipeline.clear_queue()
+    # CustomMoviePipeline.add_job_to_queue_with_render_config(
+    #     level=level,
+    #     level_sequence=sequence_name,
+    #     render_config=render_config
+    # )
+    # CustomMoviePipeline.render_queue(executor=PIEExecutor)
 
 
 if __name__ == "__main__":
