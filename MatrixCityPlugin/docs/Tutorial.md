@@ -80,8 +80,7 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
     - `add_spawnable_camera_to_sequence()`: add a new camera to the sequence, and it is spawned by this sequence.
     - `add_spawnable_actor_to_sequence()`: add a new actor to the sequence, and it is spawned by this sequence.
         > because it is spawned by this sequence, it would not change the original level.
-    - `main()`: a demonstration of using these functions with demonstration project 
-    ([OneDrive Download](https://sensetime-my.sharepoint.cn/:u:/g/personal/meihaiyi_sensetime_com/EZFFJl3HAu9LimUoSRy0hDsBV6crj71b5Og1uxwuIFw6FA))
+    - `main()`: a demonstration of using these functions with demonstration project
     - ...
 
     **CAUTION**: Please use `SequenceKey` defined in [pydantic_model.py](../Content/Python/pydantic_model.py) 
