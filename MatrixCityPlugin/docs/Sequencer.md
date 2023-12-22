@@ -6,5 +6,4 @@ you can manage almost every thing (Actor) in the scene, including `Camera`, `Lig
 in the actor, and set properties of the actor and its components, 
 e.g. `CameraComponent.FieldOfView`, `Transform`, `Animation`, `Material`, etc.
 
-![sequencer](/docs/pics/Sequencer.png "Sequencer")
 

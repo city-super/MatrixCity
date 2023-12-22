@@ -20,11 +20,6 @@ and notice to modify config in [misc/user.json](../misc/user.json):
 python misc/run_cmd_async.py
 ```
 
-You can simply run the command above to run a demonstration which contains:
-- generating a sequence containing a [render people](https://renderpeople.com/free-3d-people/)
-model with an animation, a cube, and a camera.
-- rendering to RGB, mask, depth, normal map, and optical flow.
-
 [misc/run_cmd_async.py](../misc/run_cmd_async.py) is a **complicated** script including:
 
 - call `UE` process in `UnrealEditor-Cmd.exe` with `-ExecCmds=py {python_script}` 
@@ -92,7 +87,6 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
     **CAUTION**: Please use `SequenceKey` defined in [pydantic_model.py](../Content/Python/pydantic_model.py) 
     when adding keys to the sequence to avoid errors.
 
-    ![sequencer](./pics/Sequencer.png "Sequencer")
 
 3. render the sequence
 
@@ -119,7 +113,6 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
     - `CustomMoviePipeline.clear_queue()`: clear the queue of rendering.
     - `CustomMoviePipeline.add_job_to_queue_with_render_config()`: add a job to the queue of rendering.
         > there is a queue of rendering, and each job is a rendering job.
-        > ![render queue](./pics/RenderQueue.png "render queue")
     - `CustomMoviePipeline.render_queue()`: render the queue of rendering.
 
     **CAUTION**: `render_config` is dict which contains information of rendering.
@@ -132,10 +125,6 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
     - Anti_Alias: anti-alias setting.
     - Motion_Blur: motion blur setting.
     - ...
-
-Go to the `Output_Path`, you would get a result like:
-
-![demo](./pics/demo.gif)
 
 ## Noticed
 

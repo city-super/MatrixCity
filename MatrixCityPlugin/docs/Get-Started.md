@@ -8,27 +8,20 @@
 
 ### Install `Unreal Engine 5.0.3` in Epic Games Launcher
 
-![EpicGameLauncher](./pics/EpicGameLauncher.png "EpicGameLauncher")
-
 Choose `Unreal Engine 5.0.3` and click `Install` in your own setting 
 (normally default setting is good).
 
-## Install `XRFeitoria-Gear`
+## Install `MatrixCityPlugin`
 
-Download xrfeitoria-gear-master.zip from [**releases page**](../../releases)
-and unzip it.
+Download MatrixCityPlugin from our github repo.
 
-### 0. Download our demonstration project (or Create a new project)
-
-[OneDrive Download (UE5.0.3)](https://sensetime-my.sharepoint.cn/:u:/g/personal/meihaiyi_sensetime_com/EZFFJl3HAu9LimUoSRy0hDsBV6crj71b5Og1uxwuIFw6FA)
-
-[OneDrive Download (UE4.27.3)](https://sensetime-my.sharepoint.cn/:u:/g/personal/meihaiyi_sensetime_com/Eb8qdrUUl3VHs9V8vN1EZRYBKXK4654oniyU3VQkfMtlEQ?e=eAJb7p)
+### 0. Create a new UE project.
 
 ### 1. set config
 
 Modify config in [misc/user.json](../misc/user.json):
 
-- `ue_command`: refers to the path of `UnrealEditor-Cmd.exe` (`UE4Editor-Cmd.exe` for ue4).
+- `ue_command`: refers to the path of `UnrealEditor-Cmd.exe`.
 - `ue_project`: refers to the path of your project with suffix of `.uprojcet`.
 - `render_config`: refers to the path of render config you defined in `.yaml` 
 (an example definition is in [misc/render_config_common.yaml](../misc/render_config_common.yaml)).
@@ -68,17 +61,6 @@ You can simply run the command above to run a demonstration which contains:
 [exr_reader.py](https://github.com/openxrlab/xrprimer/blob/main/python/xrprimer/io/exr_reader.py)
 to convert `.exr` results to `.png`, for example:
 
-```bash
-$Output_Path="E:\Datasets\tmp"
-python misc/visualize.py -i $Output_Path -o $Output_Path/vis_mask --img_pattern "*/mask/*" -t mask 
-python misc/visualize.py -i $Output_Path -o $Output_Path/vis_depth --img_pattern "*/depth/*" -t depth 
-python misc/visualize.py -i $Output_Path -o $Output_Path/vis_flow --img_pattern "*/flow/*" -t flow 
-```
-
-You would get a result like:
-
-![demo](./pics/demo.gif)
-
 **For details of this demonstration, please refer to [Tutorial](./Tutorial.md).**
 
 ---
@@ -96,4 +78,3 @@ You would get a result like:
 > 
 > - `UMovieRenderPipelineProjectSettings->DefaultClasses.Add(UCustomMoviePipelineOutput::StaticClass());`
 > `UMovieRenderPipelineProjectSettings->DefaultClasses.Add(UCustomMoviePipelineDeferredPass::StaticClass());`
-> ![movie render pipeline setting](./pics/MovieRenderPipelineProjectSettings.png "Movie Render Pipeline Setting")
