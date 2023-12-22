@@ -41,7 +41,7 @@ We provide three ways to download our MatrixCity dataset. We use the same pose c
         - **transforms.json:** Poses of images after removing the images that look outside the map boundary, which are used for training and testing.
       - **\<block\>.tar:** Contain PNG images. Please unzip this file into corresponding directory **\<block\>**.
     - **test**:  Test set data.
-    - **pose/<block_name>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to [scripts/generate_split.py](scripts/generate_split.py) to generate train/test splits for custom block.
+    - **pose/<block_name>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to [scripts/generate_split.py](scripts/generate\_split.py) to generate train/test splits for custom block.
   - **street**: Street-view data.
     - **train**: Training set data. The collection interval is 5m.
       - **\<block\>**: The unit of position is m. And the rotaton matrix needs to be multiplied by 100 to normalize it.
@@ -50,7 +50,7 @@ We provide three ways to download our MatrixCity dataset. We use the same pose c
       - **\<block\>.tar:** Contain PNG images. Please unzip this file into corresponding directory **\<block\>**.
     - **train_dense**: Training dense set data. The collection interval is 1m.
     - **test**:  Test set data.
-    - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to [scripts/generate_split.py](scripts/generate_split.py) to generate train/test splits for custom block.
+    - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to [scripts/generate_split.py](scripts/generate\_split.py) to generate train/test splits for custom block.
 - **big_city**: Big City Map ($25.3km^2$) data, which has a similar file structure to the **small_city** directory.
 - **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5.
 - **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with 'scripts/load_depth.py'.
