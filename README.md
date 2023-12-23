@@ -53,8 +53,8 @@ We provide three ways to download our MatrixCity dataset. We use the same pose c
     - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
 - **big_city**: Big City Map ($25.3km^2$) data, which has a similar file structure to the **small_city** directory.
 - **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5.
-- **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with 'scripts/load_depth.py'.
-- **small_city_normal**: Normal data for the Small City Map which shares the same camera poses as the **small_city** directory. Please load it with 'scripts/load_normal.py'.
+- **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
+- **small_city_normal**: Normal data for the Small City Map which shares the same camera poses as the **small_city** directory. Please load it with **scripts/load_data.py**.
 
 # MatrixCityPlugin
 Our plugin is developed based on the v0.1.0 version of [xrfeitoria](https://github.com/openxrlab/xrfeitoria/tree/v0.1.0). Thank [Haiyi Mei](https://haiyi-mei.com/) and [Lei Yang](https://scholar.google.com.hk/citations?user=jZH2IPYAAAAJ&hl=en) for
