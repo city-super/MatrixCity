@@ -52,14 +52,14 @@ We provide three ways to download our MatrixCity dataset. We use the same pose c
     - **test**:  Test set data.
     - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
 - **big_city**: Big City Map ($25.3km^2$) data, which has a similar file structure to the **small_city** directory.
-- **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5.
+- **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5. Please refer to **scripts/merge\_aerial\_street.py** to merge custom data of aerial and street modality with different resolutions and focals.
 - **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
 - **small_city_normal**: Normal data for the Small City Map which shares the same camera poses as the **small_city** directory. Please load it with **scripts/load_data.py**.
 
 # MatrixCityPlugin
 Our plugin is developed based on the v0.1.0 version of [xrfeitoria](https://github.com/openxrlab/xrfeitoria/tree/v0.1.0). Thank [Haiyi Mei](https://haiyi-mei.com/) and [Lei Yang](https://scholar.google.com.hk/citations?user=jZH2IPYAAAAJ&hl=en) for
 their invaluable help and discussions for the plug-in development.
-> It leverages [Unreal Engine 5](https://www.unrealengine.com/) to automatically collect large-scale and high-quality city data from [City Sample project](https://www.unrealengine.com/marketplace/product/city-sample).
+> It leverages [Unreal Engine 5.0.3](https://www.unrealengine.com/) to automatically collect large-scale and high-quality city data from [City Sample project](https://www.unrealengine.com/marketplace/product/city-sample).
 >
 > Allowing researchers to flexibly control lighting, weather, and transient objects.
 >
@@ -69,19 +69,17 @@ their invaluable help and discussions for the plug-in development.
 >
 > This plugin is relied on the [Movie Render Queue](https://docs.unrealengine.com/5.0/en-US/render-cinematics-in-unreal-engine/) plugin, and is python-friendly.
 
-## Get Started
+## Installation
 
 Please see [Get-Started](MatrixCityPlugin/docs/Get-Started.md) for plugin setup.
 
-## Tutorial
+##  Generate custom trajectories
 
 Please see [Tutorial](MatrixCityPlugin/docs/Tutorial.md) for a demonstration.
 
-## Details
+## Render custom data
 
-### Python modules are defined in [MatrixCityPlugin/Content/Python](MatrixCityPlugin/Content/Python/) folder.
-
-### C++ modules are defined in [MatrixCityPlugin/Source/MatrixCityPlugin](MatrixCityPlugin/Source/MatrixCityPlugin/) folder.
+Please see [Tutorial](MatrixCityPlugin/docs/Tutorial.md) for a demonstration.
 
 
 # Citation

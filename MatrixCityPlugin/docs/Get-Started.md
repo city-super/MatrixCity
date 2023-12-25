@@ -1,15 +1,27 @@
 # Get Started
 
-## Install `Unreal Engine`
+## Device Requirement for `City Sample Project`
 
-### Download and Install Epic Games Launcher
+- Windows 10 with support for DirectX 12
 
-[https://store.epicgames.com/en-US/download](https://store.epicgames.com/en-US/download)
+- 12-core CPU at 3.4 GHz
 
-### Install `Unreal Engine 5.0.3` in Epic Games Launcher
+- 64 GB of System RAM
 
-Choose `Unreal Engine 5.0.3` and click `Install` in your own setting 
-(normally default setting is good).
+- GeForce RTX-2080 / AMD Radeon 6000 or higher
+
+- At least 8 GB of VRAM
+
+## Install `Unreal Engine 5.0.3`
+
+- Download and Install [Epic Games Launcher](https://store.epicgames.com/en-US/download).
+
+- Choose `Unreal Engine 5.0.3` and click `Install` in your own setting (normally default setting is good).
+
+![teaser](figures/ue5_install.png)
+
+## Install `City Sample Project` in Epic Games Launcher
+
 
 ## Install `MatrixCityPlugin`
 

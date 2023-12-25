@@ -7,9 +7,9 @@ import numpy as np
 
 def parse_args():
     parser = argparse.ArgumentParser(description="merge aerial and road json.")
-    parser.add_argument("--high_name", type=str, default='high/blockdemo')
-    parser.add_argument("--road_name", type=str, default='blockdemo_dense_road_fov45')
-    parser.add_argument("--out_name", type=str, default='high_road_blockdemo')
+    parser.add_argument("--high_name", type=str, default='aerial')
+    parser.add_argument("--road_name", type=str, default='street')
+    parser.add_argument("--out_name", type=str, default='aerial_street')
     args = parser.parse_args()
     return args
 

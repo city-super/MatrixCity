@@ -31,6 +31,10 @@ defined in [misc/user.json#L5](../misc/user.json).
 
 ## Details
 
+### Python modules are defined in [MatrixCityPlugin/Content/Python](MatrixCityPlugin/Content/Python/) folder.
+
+### C++ modules are defined in [MatrixCityPlugin/Source/MatrixCityPlugin](MatrixCityPlugin/Source/MatrixCityPlugin/) folder.
+
 The core of `run_cmd_async.py` is running `{python_script}` inside `UE` process, 
 `{python_script}` is 
 [Content/Python/pipeline.py](../Content/Python/pipeline.py) 
