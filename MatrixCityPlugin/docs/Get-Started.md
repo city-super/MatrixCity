@@ -62,6 +62,6 @@ This script would execute the following steps:
 ![Enable_movie_render_queue](figures/Enable_movie_render_queue.png)
 ![Enable_MatrixCity](figures/Enable_MatrixCity.png)
 
->If you want to use the MatriCityPlugin to generate camera trajectories and render them without manual rendering, you need to modify the project's startup map, same with the level specified in the [utils_sequencer#L866](../Content/Python/utils_sequencer.py).
+>If you want to use the MatriCityPlugin to generate camera trajectories and render them without manual rendering, you need to modify the project's startup map, same with the level specified in the [utils_sequencer#L866](../Content/Python/utils_sequencer.py#L866).
 ![Set_project](figures/Set_project.png)
 ![Set_startup](figures/Set_startup.png)
