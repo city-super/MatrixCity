@@ -863,7 +863,7 @@ def main():
     from datetime import datetime
 
     # pre-defined
-    level = '/Game/Maps/Small_City_LVL' # the path of map.
+    level = '/Game/Map/Small_City_LVL' # the path of map.
     sequence_dir = '/Game/Sequences'
     seq_fps = 30
     current_frame=0
