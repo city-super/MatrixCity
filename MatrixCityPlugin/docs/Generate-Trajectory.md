@@ -47,20 +47,25 @@ We provide the examples for generating training and testing set for aerial data,
 - `generate_train_line` and `generate_test_line`: Generate camera trajectories for street data, given `point1`, `point2`, `height`, `yaw`, `current_frame`, `dense`. Each capturing location in the collection lines has six perspective cameras to render a cube map, providing a comprehensive view of the surroundings. But, we remove the images that look straight down following [nerfstudio](https://docs.nerf.studio/quickstart/custom_dataset.html#data-equirectangular). These two functions support generate the trajectories of multiple streets in one sequence.
     - In your project map, please annotate the start and end points of the collection line and retrieve the `point1`, `point2`, `height`, and `yaw` values from the Unreal Engine (UE). Note that `point1` and `point2` represent endpoints of the line, `yaw` represents the direction of the line, and `dense` controls the collection frequency (1m / 5m).
 - How to annotate keypoints and retrieve corresponding camera pose in UE:
-    1. Create a level sequence to record camere poses.
+    #### 1. Create a level sequence to record camere poses.
     ![Level_sequence](figures/Level_sequence.png)
-    2. Add a new camera.
+
+    #### 2. Add a new camera.
     ![New_camera](figures/New_camera.png)
-    3. Lock camera to current viewport to ensure that the preview in the viewport is consistent with the camera image.
+
+    #### 3. Lock camera to current viewport to ensure that the preview in the viewport is consistent with the camera image.
     ![Lock_camera](figures/Lock_camera.png)
-    4. Use the up, down, left and right keys to control camera movement. And use the right mouse button to control the camera direction. If you want to annotate current camera pose, you can add a new key in the `transform` part.
+
+    #### 4. Use the up, down, left and right keys to control camera movement. And use the right mouse button to control the camera direction. If you want to annotate current camera pose, you can add a new key in the `transform` part.
     ![New_key](figures/New_key.png)
-    5. Retrieve the camera pose. You can also modify the camera poses by modifying the values in `transform`, thereby changing the preview in the viewport to achieve the desired picture.
+
+    #### 5. Retrieve the camera pose. You can also modify the camera poses by modifying the values in `transform`, thereby changing the preview in the viewport to achieve the desired picture.
     ![Camrea_pose](figures/Camera_pose.png)
-    6. Move to next frame to annotate next keypoint. Repeat step 4-6.
+    
+    #### 6. Move to next frame to annotate next keypoint. Repeat step 4-6.
     ![Move_frame](figures/Move_frame.png)
 
-Note:
+### Note:
 - You need to specify the `sequence name`, `fov`, and the trajectory generation function and corresponding parameters in the `main` function of [Content/Python/utils_sequencer.py](../Content/Python/utils_sequencer.py) like the given examples to generate your own trajectories.
 - The fov is 45 for aerial data and 90 for street data.
 - You can add your own tracjectory generation functions in the file [Content/Python/utils_sequencer.py](../Content/Python/utils_sequencer.py) and call it in the `main` function.

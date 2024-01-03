@@ -85,7 +85,7 @@ Please see [Render-Data](MatrixCityPlugin/docs/Render-Data.md) to render custom 
 
 ## Code Details
 
-We also provide some code details for your convenience in [Code-Details](MatrixCityPlugin/docs/Code-Details).
+We also provide some code details for your convenience in [Code-Details](MatrixCityPlugin/docs/Code-Details.md).
 
 # Citation
 
