@@ -68,13 +68,13 @@ def main(config_file=f'{ROOT}/user.json'):
 
     print('\n-------pip install done.--------')
 
-    try:
-        mklink(ue_project_dir, 'Plugins')
-    except subprocess.CalledProcessError:
-        print('Failed to create symbolic link. Please run this script as administrator.')
+    # try:
+    #     mklink(ue_project_dir, 'Plugins')
+    # except subprocess.CalledProcessError:
+    #     print('Failed to create symbolic link. Please run this script as administrator.')
     
 
-    print('\n-------mklink install done.--------')
+    # print('\n-------mklink install done.--------')
 
     print('\n-------Initialization done.--------')
 

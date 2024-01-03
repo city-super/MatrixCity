@@ -1,39 +1,16 @@
-# Tutorial
+# Code Details
+Python modules are defined in [MatrixCityPlugin/Content/Python](MatrixCityPlugin/Content/Python/) folder.
 
-> Generate your first synthetic dataset in 10 minutes.
-
-## Initialize
-
-You should first follow the instruction in 
-[Get-Started](./Get-Started.md) for plugin setup, 
-and notice to modify config in [misc/user.json](../misc/user.json):
-
-- `ue_command`: refers to the path of `UnrealEditor-Cmd.exe` (`UE4Editor-Cmd.exe` for ue4).
-- `ue_project`: refers to the path of your project with suffix of `.uprojcet`.
-- `render_config`: refers to the path of render config you defined in `.yaml` 
-(an example definition is in [misc/render_config_common.yaml](../misc/render_config_common.yaml)).
-- `python_script`: refers to the path of python script you want to execute.
-
-### Run from python
-
-```bash
-python misc/run_cmd_async.py
-```
+C++ modules are defined in [MatrixCityPlugin/Source/MatrixCityPlugin](MatrixCityPlugin/Source/MatrixCityPlugin/) folder.
 
 [misc/run_cmd_async.py](../misc/run_cmd_async.py) is a **complicated** script including:
 
 - call `UE` process in `UnrealEditor-Cmd.exe` with `-ExecCmds=py {python_script}` 
-(defined in [run_cmd_async.py#L214](../misc/run_cmd_async.py)), where `python_script` is
+(defined in [run_cmd_async.py#L213](../misc/run_cmd_async.py)), where `python_script` is
 defined in [misc/user.json#L5](../misc/user.json).
 - communicate with `UE` process by socket asynchronously.
     - receive generation status from `UE` process
     - error catching and resuming
-
-## Details
-
-### Python modules are defined in [MatrixCityPlugin/Content/Python](MatrixCityPlugin/Content/Python/) folder.
-
-### C++ modules are defined in [MatrixCityPlugin/Source/MatrixCityPlugin](MatrixCityPlugin/Source/MatrixCityPlugin/) folder.
 
 The core of `run_cmd_async.py` is running `{python_script}` inside `UE` process, 
 `{python_script}` is 
@@ -41,11 +18,11 @@ The core of `run_cmd_async.py` is running `{python_script}` inside `UE` process,
 in this tutorial. So let's get rid of the fancy code in `run_cmd_async.py` and
 just focus on `{python_script}`.
 
-### [pipeline.py](../Content/Python/pipeline.py)
+## [pipeline.py](../Content/Python/pipeline.py)
 
 This pipeline is divided into three parts:
 
-1. create a PIE Executor, and connect to the socket server 
+### 1. create a PIE Executor, and connect to the socket server 
 created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
 
     ```python
@@ -65,7 +42,7 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
     > Plus, it may not be the best way to connect to the socket server using `PIEExecutor`,
     > but it is a simple way to do it, you can develop your own.
 
-2. create a sequence
+### 2. create a sequence
 
     Our plugin is relied on the [Movie Render Queue](https://docs.unrealengine.com/5.0/en-US/render-cinematics-in-unreal-engine/) plugin,
     which is relied on [Sequencer](https://docs.unrealengine.com/5.0/en-US/unreal-engine-sequencer-movie-tool-overview/).
@@ -82,8 +59,6 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
 
     - `generate_sequence()`: create a new sequence.
     - `add_spawnable_camera_to_sequence()`: add a new camera to the sequence, and it is spawned by this sequence.
-    - `add_spawnable_actor_to_sequence()`: add a new actor to the sequence, and it is spawned by this sequence.
-        > because it is spawned by this sequence, it would not change the original level.
     - `main()`: a demonstration of using these functions with demonstration project
     - ...
 
@@ -91,7 +66,11 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
     when adding keys to the sequence to avoid errors.
 
 
-3. render the sequence
+### 3. render the sequence
+
+    Initiating the `City Sample Project` from a python script is is notably inefficient, and it cannot flexibly control the lighting, human and car crowds. Thus, in the paper, our plugin is used to generate camera trajectories, which are then manually rendered within the `City Sample Project`. 
+    
+    For your custom project, you can uncomment this part of code, allowing the use of Python scripts for both trajectory generation and image rendering.
 
     ```python
     from custom_movie_pipeline import CustomMoviePipeline
@@ -112,7 +91,7 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
 
     In [custom_movie_pipeline.py](../Content/Python/custom_movie_pipeline.py),
     we defined a class `CustomMoviePipeline` for rendering a sequence with movie render queue in python code, 
-    there are several classmethod defined inside the class, including:
+    there are several class method defined inside the class, including:
     - `CustomMoviePipeline.clear_queue()`: clear the queue of rendering.
     - `CustomMoviePipeline.add_job_to_queue_with_render_config()`: add a job to the queue of rendering.
         > there is a queue of rendering, and each job is a rendering job.
@@ -128,27 +107,3 @@ created in [run_cmd_async.py#L236](../misc/run_cmd_async.py).
     - Anti_Alias: anti-alias setting.
     - Motion_Blur: motion blur setting.
     - ...
-
-## Noticed
-
-### `sys.path`
-
-As described in [official documentation](https://docs.unrealengine.com/5.0/en-US/scripting-the-unreal-editor-using-python/#pythonenvironmentandpathsintheunrealeditor),
-The Unreal Editor automatically adds several paths to this `sys.path` list:
-
-- The **Content/Python** sub-folder in your Project's folder.
-- The **Content/Python** sub-folder in the main Unreal Engine installation.
-- The **Content/Python** sub-folder in each enabled Plugin's folder.
-- ...
-
-So, the main python modules of this plugin are defined in 
-[`Content/Python`](../Content/Python) folder.
-
-
-### Disable `Live Coding` in `Editor Preferences`:
-
-This new feature of ue5 would cause some problems when you are using this plugin.
-
-![](./pics/EditorPreferences.png)
-
-![](./pics/LiveCoding.png)

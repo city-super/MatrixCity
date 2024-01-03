@@ -863,21 +863,22 @@ def main():
     from datetime import datetime
 
     # pre-defined
-    level = '/Game/Maps/Small_City_LVL'
+    level = '/Game/Maps/Small_City_LVL' # the path of map.
     sequence_dir = '/Game/Sequences'
     seq_fps = 30
     current_frame=0
     
-    # exmaples for generating training and testing set for aerial data
+    # exmaples for generating training set for aerial data
     sequence_name='aerial_train'
     fov=45
     camera_trans, current_frame=generate_train_box([-100000, 0, -12000, 0], [-100000, 38000, -12000, 38000], 15000, current_frame) # block 1
 
+    # exmaples for generating testing set for aerial data
     # sequence_name='aerial_test'
     # fov=45
     # camera_trans, current_frame=generate_test_box([-95000, 5000,-17000, 5000], [-95000, 33000, -17000, 33000], 15000, current_frame) # block 1 test
 
-    # exmaples for generating training(sparse/dense) and testing set for street data
+    # exmaples for generating training(sparse) set for street data
     # sequence_name='street_train'
     # fov=90
     # camera_trans=[]
@@ -886,6 +887,7 @@ def main():
     # tmp_camera_trans, current_frame=generate_train_line([-19102.925781, 46310.578125], [-10849.427734, 49813.980469], 300, 23, current_frame)
     # camera_trans.extend(tmp_camera_trans)
 
+    # exmaples for generating training(dense) set for street data
     # sequence_name='street_train_dense'
     # fov=90
     # camera_trans=[]
@@ -894,6 +896,7 @@ def main():
     # tmp_camera_trans, current_frame=generate_train_line([-19102.925781, 46310.578125], [-10849.427734, 49813.980469], 300, 23, current_frame, dense=True)
     # camera_trans.extend(tmp_camera_trans)
     
+    # exmaples for generating testing set for street data
     # sequence_name='street_test'
     # fov=90
     # camera_trans=[]

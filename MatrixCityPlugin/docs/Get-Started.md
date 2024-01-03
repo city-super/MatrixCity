@@ -18,16 +18,19 @@
 
 - Choose `Unreal Engine 5.0.3` and click `Install` in your own setting (normally default setting is good).
 
-![teaser](figures/ue5_install.png)
+![ue5_install](figures/ue5_install.png)
 
 ## Install `City Sample Project` in Epic Games Launcher
 
+- Install `City Sample Project` in the marketplace of `Unreal Engine`.
+- Select the version of `Unreal Engine 5.0`.
+
+![city_sample_install](figures/city_sample_install.png)
 
 ## Install `MatrixCityPlugin`
 
-Download MatrixCityPlugin from our github repo.
-
-### 0. Create a new UE project.
+### 0. download the plugin 
+Download MatrixCityPlugin from our github repo. And put the `MatrixCityPlugin` folder into the foler `Plugins` of `City Sample Project`, like `CitySample\Plugins\MatrixCityPlugin`.
 
 ### 1. set config
 
@@ -41,11 +44,8 @@ Modify config in [misc/user.json](../misc/user.json):
 
 ### 2. init the plugin
 
+You can run the command below to install all the dependencies.
 ```bash
-# (optional) change pip source to speed up
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-
-# python 3.7 or above
 python misc/run_init.py -f misc/user.json
 ```
 
@@ -55,38 +55,13 @@ This script would execute the following steps:
 
 - `pip install -r misc/requirements.txt` for system python.
 
-- create a soft link to the plugin folder in the project root folder.
 
-## Run demonstration
+### 3. setup the `MatriCity` project
+>Please take the following steps to ensure that these plugins are enabled.
+![Set_plugin](figures/Set_plugin.png) 
+![Enable_movie_render_queue](figures/Enable_movie_render_queue.png)
+![Enable_MatrixCity](figures/Enable_MatrixCity.png)
 
-```bash
-python misc/run_cmd_async.py -f misc/user.json
-```
-
-You can simply run the command above to run a demonstration which contains:
-- generating a sequence containing a `render people` model with animations and a `cube`
-- rendering to RGB, mask, depth, normal map, and optical flow.
-
-**The rendering results are saved in `Output_Path` defined in `render_config.yaml`.**
-- visualize the results in `Output_Path`
-- use [visualize.py](../misc/visualize.py) or 
-[exr_reader.py](https://github.com/openxrlab/xrprimer/blob/main/python/xrprimer/io/exr_reader.py)
-to convert `.exr` results to `.png`, for example:
-
-**For details of this demonstration, please refer to [Tutorial](./Tutorial.md).**
-
----
-
-> This plugin will automatically set some project settings for ue project (see [Source/MatrixCityPlugin/Private/MatrixCityPlugin.cpp](../Source/MatrixCityPlugin/Private/MatrixCityPlugin.cpp) for details):
-> 
-> - `URendererSettings->CustomDepthStencil = ECustomDepthStencil::EnabledWithStencil`
-> (same as `r.CustomDepth=3` in `Config/DefaultEngine.ini` under `[/Script/Engine.RendererSettings]`
-> 
-> - `URendererSettings->VelocityPass = EVelocityOutputPass::BasePass`
-> (same as `r.VelocityOutputPass=1` in `Config/DefaultEngine.ini` under `[/Script/Engine.RendererSettings]`)
-> 
->     - in UE 4.27: `Settings->bBasePassOutputsVelocity = True` 
->    (same as `r.BasePassOutputsVelocity=True` in `Config/DefaultEngine.ini` under `[/Script/Engine.RendererSettings]`)
-> 
-> - `UMovieRenderPipelineProjectSettings->DefaultClasses.Add(UCustomMoviePipelineOutput::StaticClass());`
-> `UMovieRenderPipelineProjectSettings->DefaultClasses.Add(UCustomMoviePipelineDeferredPass::StaticClass());`
+>If you want to use the MatriCityPlugin to generate camera trajectories and render them without manual rendering, you need to modify the project's startup map, same with the level specified in the [utils_sequencer#L866](../Content/Python/utils_sequencer.py).
+![Set_project](figures/Set_project.png)
+![Set_startup](figures/Set_startup.png)

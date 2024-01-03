@@ -46,7 +46,7 @@ We provide three ways to download our MatrixCity dataset. We use the same pose c
     - **train**: Training set data. The collection interval is 5m.
       - **\<block\>**: The unit of position is m. And the rotaton matrix needs to be multiplied by 100 to normalize it.
         - **transforms_origin.json:** Poses of all original collected images.
-        - **transforms.json:** Poses of images after removing the images that look straight down following [nerfstudio](https://docs.nerf.studio/quickstart/custom_dataset.html#data-equirectangular), which are used for training and testing.
+        - **transforms.json:** Poses of images after removing the images that look straight down following, which are used for training and testing.
       - **\<block\>.tar:** Contain PNG images. Please unzip this file into corresponding directory **\<block\>**.
     - **train_dense**: Training dense set data. The collection interval is 1m.
     - **test**:  Test set data.
@@ -75,12 +75,17 @@ Please see [Get-Started](MatrixCityPlugin/docs/Get-Started.md) for plugin setup.
 
 ##  Generate custom trajectories
 
-Please see [Tutorial](MatrixCityPlugin/docs/Tutorial.md) for a demonstration.
+Please see [Generate-Trajectory](MatrixCityPlugin/docs/Generate-Trajectory.md) to generate custom trajectories.
+
+ We have provided the trajectories of Small City and Big City used in our dataset in folder [MatrixCitySequence](MatrixCitySequence). If you only want to render your own data under different environmental settings based on the provided trajectories, you can skip this part. 
 
 ## Render custom data
 
-Please see [Tutorial](MatrixCityPlugin/docs/Tutorial.md) for a demonstration.
+Please see [Render-Data](MatrixCityPlugin/docs/Render-Data.md) to render custom data after getting camera trajectories (Provided / Custom).
 
+## Code Details
+
+We also provide some code details for your convenience in [Code-Details](MatrixCityPlugin/docs/Code-Details).
 
 # Citation
 
