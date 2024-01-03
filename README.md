@@ -12,6 +12,8 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Release
 
+**Jan. 2024 - Release depth maps of Big City**
+
 **Dec. 2023 - V1.0.1 MatrixCityPlugin Released**
 - Documentation on using our plugins to collect custom data. 
 - Render configs and sequences used in our paper.
