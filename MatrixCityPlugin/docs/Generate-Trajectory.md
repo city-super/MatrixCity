@@ -100,5 +100,5 @@ We provide the examples for generating training and testing set for aerial data,
 - Select `Script` and change the `fp` to your local directory.
 ![UE_camera_pose_6](figures/Blender_camera_pose_6.png)
 
-- Select `Cine_Camera_Actor` and click the `Run` icon. `transforms.json` will be saved in `fp`. The unit of position is m. And the rotaton matrix needs to be multiplied by 100 to normalize it. You can use [generate_split.py](../../scripts/generate_split.py) to generate files for training. 
+- Select `Cine_Camera_Actor` and then click the `Run` icon. `transforms.json` will be saved in `fp`. The unit of position is m. And the rotaton matrix needs to be multiplied by 100 to normalize it. You can use [generate_split.py](../../scripts/generate_split.py) to generate files for training. 
 ![UE_camera_pose_7](figures/Blender_camera_pose_7.png)
