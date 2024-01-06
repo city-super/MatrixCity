@@ -85,6 +85,10 @@ Please see [Generate-Trajectory](MatrixCityPlugin/docs/Generate-Trajectory.md) t
 
 Please see [Render-Data](MatrixCityPlugin/docs/Render-Data.md) to render custom data after getting camera trajectories (Provided / Custom).
 
+## Exports camera poses
+
+Please see [Export-Camere-Poses](MatrixCityPlugin/docs/Export-Camere-Poses.md) to export camera trajectories from UE to `transforms.json`.
+
 ## Code Details
 
 We also provide some code details for your convenience in [Code-Details](MatrixCityPlugin/docs/Code-Details.md).
