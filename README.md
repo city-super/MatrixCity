@@ -38,21 +38,21 @@ We provide three ways to download our MatrixCity dataset. We use the same pose c
 - **small_city**: Small City Map ($2.7km^2$) data.
   - **aerial**: Aerial-view data.
     - **train**: Training set data.
-      - **\<block\>**: The unit of position is m. And the rotaton matrix needs to be multiplied by 100 to normalize it. 
+      - **\<block\>**: The unit of position is m. And the rotation matrix needs to be multiplied by 100 to normalize it. 
         - **transforms_origin.json:** Poses of all original collected images.
         - **transforms.json:** Poses of images after removing the images that look outside the map boundary, which are used for training and testing.
       - **\<block\>.tar:** Contain PNG images. Please unzip this file into corresponding directory **\<block\>**.
     - **test**:  Test set data.
-    - **pose/<block_name>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
+    - **pose/<block_name>**: Data splits and pose used in our paper. The unit of position is 100m and the rotation matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
   - **street**: Street-view data.
     - **train**: Training set data. The collection interval is 5m.
-      - **\<block\>**: The unit of position is m. And the rotaton matrix needs to be multiplied by 100 to normalize it.
+      - **\<block\>**: The unit of position is m. And the rotation matrix needs to be multiplied by 100 to normalize it.
         - **transforms_origin.json:** Poses of all original collected images.
         - **transforms.json:** Poses of images after removing the images that look straight down following, which are used for training and testing.
       - **\<block\>.tar:** Contain PNG images. Please unzip this file into corresponding directory **\<block\>**.
     - **train_dense**: Training dense set data. The collection interval is 1m.
     - **test**:  Test set data.
-    - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotaton matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
+    - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotation matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
 - **big_city**: Big City Map ($25.3km^2$) data, which has a similar file structure to the **small_city** directory.
 - **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5. Please refer to **scripts/merge\_aerial\_street.py** to merge custom data of aerial and street modality with different resolutions and focals.
 - **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
