@@ -25,7 +25,7 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Data Download
 
-We provide three ways to download our MatrixCity dataset. We use the same pose coordinate system as original [NeRF repo](https://github.com/bmild/nerf): the local camera coordinate system of an image is defined in a way that the X axis points to the right, the Y axis upwards, and the Z axis backwards as seen from the image.
+We provide three ways to download our MatrixCity dataset.
 
 **Hugging face**: https://huggingface.co/datasets/BoDai/MatrixCity/tree/main
 
@@ -57,6 +57,19 @@ We provide three ways to download our MatrixCity dataset. We use the same pose c
 - **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5. Please refer to **scripts/merge\_aerial\_street.py** to merge custom data of aerial and street modality with different resolutions and focals.
 - **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
 - **small_city_normal**: Normal data for the Small City Map which shares the same camera poses as the **small_city** directory. Please load it with **scripts/load_data.py**.
+
+# Pose File Structure
+
+We use the same pose coordinate system as original [NeRF repo](https://github.com/bmild/nerf): the local camera coordinate system of an image is defined in a way that the X axis points to the right, the Y axis upwards, and the Z axis backwards as seen from the image.
+
+- **camera_angle_x**: The fov (field of view) of horizontal direction. The unit is radian but not angle.
+- **fl_x**: The focal length of the image. The unit is pixel.
+- **fl_y**: This is a copy of fl_x.
+- **w**: The width of the image. The unit is pixel.
+- **h**: The height of the image. The unit is pixel.
+- **frames**:
+  - **file_path**: The relative path of the image in the MatrixCity directory structure.
+  - **transform_matrix**: Poses are stored as $4 \times 4$ numpy arrays that represent camera-to-world transformation matrices. The last row of the matrix is ​​padding and has no other meaning.
 
 # MatrixCityPlugin
 Our plugin is developed based on the v0.1.0 version of [xrfeitoria](https://github.com/openxrlab/xrfeitoria/tree/v0.1.0). Thank [Haiyi Mei](https://haiyi-mei.com/) and [Lei Yang](https://scholar.google.com.hk/citations?user=jZH2IPYAAAAJ&hl=en) for
