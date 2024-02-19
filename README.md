@@ -12,6 +12,8 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Release
 
+**Feb. 2024 - Release diffuse, metallic, roughness and specular of Small City in Hugging face and Baidu Wangpan**
+
 **Jan. 2024 - Release depth maps of Big City**
 
 **Dec. 2023 - V1.0.1 MatrixCityPlugin Released**
@@ -54,9 +56,14 @@ We provide three ways to download our MatrixCity dataset.
     - **test**:  Test set data.
     - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotation matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
 - **big_city**: Big City Map ($25.3km^2$) data, which has a similar file structure to the **small_city** directory.
+- **big_city_depth**: Depth data for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
 - **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5. Please refer to **scripts/merge\_aerial\_street.py** to merge custom data of aerial and street modality with different resolutions and focals.
 - **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
 - **small_city_normal**: Normal data for the Small City Map which shares the same camera poses as the **small_city** directory. Please load it with **scripts/load_data.py**.
+- **small_city_diffuse**: Diffuse data for the Small City Map which shares the same camera poses as the **small_city** directory.
+- **small_city_metallic**: Metallic data for the Small City Map which shares the same camera poses as the **small_city** directory.
+- **small_city_roughness**: Roughness data for the Small City Map which shares the same camera poses as the **small_city** directory.
+- **small_city_specular**: Specular data for the Small City Map which shares the same camera poses as the **small_city** directory.
 
 # Pose File Structure
 
