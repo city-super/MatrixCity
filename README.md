@@ -12,7 +12,11 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Release
 
-**Feb. 2024 - Release diffuse, metallic, roughness and specular of Small City in Hugging face and Baidu Wangpan**
+**Apr. 2024 - Release depth maps of aerial data in float32 format on Hugging Face and Baidu Wangpan. Update the scripts for loading depth and normal maps.**
+- We recommand that using the depth maps in float32 format for aerial views because the default for EXR is float16, which can represent up to 65504cm and does not effectively represent the depth for aerial views.
+- Add checks for invalid masks in the scripts including the sky and content exceeding the maximum depth range.
+
+**Feb. 2024 - Release diffuse, metallic, roughness and specular of Small City on Hugging Face and Baidu Wangpan**
 
 **Jan. 2024 - Release depth maps of Big City**
 
@@ -29,11 +33,37 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 We provide three ways to download our MatrixCity dataset.
 
-**Hugging face**: https://huggingface.co/datasets/BoDai/MatrixCity/tree/main
+**Hugging Face**: https://huggingface.co/datasets/BoDai/MatrixCity/tree/main
 
 **Openxlab**: https://openxlab.org.cn/datasets/bdaibdai/MatrixCity
 
 **Baidu Wangpan**: https://pan.baidu.com/s/187P0e5p1hz9t5mgdJXjL1g#list/path=%2F (password: hqnn)
+
+
+# Data Color Space
+
+We output depth and normal maps in EXR format, while RGB, diffuse, specular, roughness, and metallic are output in PNG format. All files in EXR format are in linear space, and all images in PNG format are in sRGB space. Please use [gamma correction](https://en.wikipedia.org/wiki/Gamma_correction) for conversion.
+
+# Depth and Normal Map Note
+
+- Our depth maps are rendered with anti-aliasing settings to align with RGB images. However, this may result in artifacts when converting depth maps to point clouds, as discussed in the [issue#4](https://github.com/city-super/MatrixCity/issues/4). We provide the guidance to render depth maps without anti-alias in [Render Data/Depth-1](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth).
+- The depth maps are in EXR format, which defaults to float16 data type with a maximum range of 65504. For depth maps, this means the farthest distance that can be expressed is 65504 cm, so we recommend using the depth maps in float32 format for aerial views. We provide the guidance to export EXR files in float32 format in [Render Data/Depth-2](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth). Also we provide code in [load_data.py](scripts/load_data.py) to identify the invalid part of depth maps in float16 precision.
+- The normal maps of the sky portion are invalid, and we provide code in [load_data.py](scripts/load_data.py) to identify the invalid masks.
+
+# Pose File Structure
+
+We use the same pose coordinate system as original [NeRF repo](https://github.com/bmild/nerf): the local camera coordinate system of an image is defined in a way that the X axis points to the right, the Y axis upwards, and the Z axis backwards as seen from the image.
+
+- **camera_angle_x**: The fov (field of view) of horizontal direction. The unit is radian but not angle.
+- **fl_x**: The focal length of the image. The unit is pixel.
+- **fl_y**: This is a copy of fl_x.
+- **w**: The width of the image. The unit is pixel.
+- **h**: The height of the image. The unit is pixel.
+- **frames**:
+  - **file_path**: The relative path of the image in the MatrixCity directory structure.
+  - **transform_matrix**: Poses are stored as $4 \times 4$ numpy arrays that represent camera-to-world transformation matrices. The last row of the matrix is ​​padding and has no other meaning.
+
+
 
 # Data Structure
 
@@ -56,27 +86,17 @@ We provide three ways to download our MatrixCity dataset.
     - **test**:  Test set data.
     - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotation matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
 - **big_city**: Big City Map ($25.3km^2$) data, which has a similar file structure to the **small_city** directory.
-- **big_city_depth**: Depth data for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
+- **big_city_depth**: Depth data of the float16 precesion for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
+- **big_city_depth_flaot32**: Depth data of the float32 precision for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
 - **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5. Please refer to **scripts/merge\_aerial\_street.py** to merge custom data of aerial and street modality with different resolutions and focals.
-- **small_city_depth**: Depth data for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**.
+- **small_city_depth**: Depth data of the float16 precesion for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
+- **small_city_depth_float32**: Depth data of the float32 precesion for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
 - **small_city_normal**: Normal data for the Small City Map which shares the same camera poses as the **small_city** directory. Please load it with **scripts/load_data.py**.
 - **small_city_diffuse**: Diffuse data for the Small City Map which shares the same camera poses as the **small_city** directory.
 - **small_city_metallic**: Metallic data for the Small City Map which shares the same camera poses as the **small_city** directory.
 - **small_city_roughness**: Roughness data for the Small City Map which shares the same camera poses as the **small_city** directory.
 - **small_city_specular**: Specular data for the Small City Map which shares the same camera poses as the **small_city** directory.
 
-# Pose File Structure
-
-We use the same pose coordinate system as original [NeRF repo](https://github.com/bmild/nerf): the local camera coordinate system of an image is defined in a way that the X axis points to the right, the Y axis upwards, and the Z axis backwards as seen from the image.
-
-- **camera_angle_x**: The fov (field of view) of horizontal direction. The unit is radian but not angle.
-- **fl_x**: The focal length of the image. The unit is pixel.
-- **fl_y**: This is a copy of fl_x.
-- **w**: The width of the image. The unit is pixel.
-- **h**: The height of the image. The unit is pixel.
-- **frames**:
-  - **file_path**: The relative path of the image in the MatrixCity directory structure.
-  - **transform_matrix**: Poses are stored as $4 \times 4$ numpy arrays that represent camera-to-world transformation matrices. The last row of the matrix is ​​padding and has no other meaning.
 
 # MatrixCityPlugin
 Our plugin is developed based on the v0.1.0 version of [xrfeitoria](https://github.com/openxrlab/xrfeitoria/tree/v0.1.0). Thank [Haiyi Mei](https://haiyi-mei.com/) and [Lei Yang](https://scholar.google.com.hk/citations?user=jZH2IPYAAAAJ&hl=en) for

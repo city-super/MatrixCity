@@ -42,9 +42,10 @@ The primary aim of the MatrixCity v0.1.0 dataset is to study the core challenges
     - Search `spawn` in `Outliner`, including `BP_MassCrowdSpawner` (number of moving pedestrians), `BP_MassTrafficParkedVehichleSpawner`(number of static parked cars), and `BP_MassTrafficVehicleSpwaner`(number of moving cars).
     ![Search_spawn](figures/Search_spawn.png)
 
-    - In our paper, we set the `count` of `BP_MassCrowdSpawner` and `BP_MassTrafficVehicleSpwaner` to 0 in the `Details` panel, resulting a static scene.
+    - In our paper, we set the `count` of `BP_MassCrowdSpawner`, `BP_MassTrafficVehicleSpwaner` and `BP_MassTrafficParkedVehichleSpawner` to 0 in the `Details` panel, resulting a static scene.
     ![Crowd_0](figures/Crowd_0.png)
     ![Car_0](figures/Car_0.png)
+    ![Car_1](figures/Car_1.png)
 
     - In your work, after selecting the asset, you can adjut the count of moving pedestrians, static parked cars and moving cars in the `Details` panel to simulate the real-world dynamic scenes.
 
@@ -90,9 +91,12 @@ The default camera aspect ratio is 16:9. If your output resolution is not this r
 ![Set_constrain](figures/Set_constrain.png)
 
 ### Depth:
-To achieve the highest possible image quality, we use anti-aliasing during the rendering process. This will make the edges of the depth smooth and brings noises when converting depth into poing cloud. Please refer to [Noise in depth gt](https://github.com/city-super/MatrixCity/issues/4#issuecomment-1774054407) for more details.We only provide the depth map rendered with anti-alias. 
+#### 1. To achieve the highest possible image quality, we use anti-aliasing during the rendering process. This will make the edges of the depth smooth and brings noises when converting depth into poing cloud. Please refer to [Noise in depth gt](https://github.com/city-super/MatrixCity/issues/4#issuecomment-1774054407) for more details. We only provide the depth map rendered with anti-alias. 
 
 >If you want to use the depth map to guide reconstruction, depth map rendered with anti-alias is more suitable because rgb is also rendered with anti-alias. You can download our provided depth map.
 
 >If you want to extract geometry from depth map, you should rendered without anti-alias. You just change the `Spatial Sample Count` from `8` to `1` in rendering config file to disable the anti-alias.
-![Set_anti_alias](figures/Set_anti_alias.png).
+![Set_anti_alias](figures/Set_anti_alias.png)
+
+#### 2. The default data type for the EXR file is float16, which can represent a maximum value of 65504, and the precision decreases as it approaches this maximum value. float16 is reasonable for depth maps of street views, but many depth maps of aerial views exceed this range, necessitating the use of float32 precision. You can set the `Use 32Bit Post Process Materials` as True in rendering config file to save depth map in float32 format.
+![Set_float32](figures/Set_float32.png)
