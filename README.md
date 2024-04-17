@@ -12,11 +12,11 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Release
 
-**Apr. 2024 - Release depth maps of aerial data in float32 format on Hugging Face and Baidu Wangpan. Update the scripts for loading depth and normal maps.**
+**Apr. 2024 - Release depth maps of aerial data in float32 format on Hugging Face and Baidu Netdisk. Update the scripts for loading depth and normal maps.**
 - We recommand that using the depth maps in float32 format for aerial views because the default for EXR is float16, which can represent up to 65504cm and does not effectively represent the depth for aerial views.
 - Add checks for invalid masks in the scripts including the sky and content exceeding the maximum depth range.
 
-**Feb. 2024 - Release diffuse, metallic, roughness and specular of Small City on Hugging Face and Baidu Wangpan**
+**Feb. 2024 - Release diffuse, metallic, roughness and specular of Small City on Hugging Face and Baidu Netdisk**
 
 **Jan. 2024 - Release depth maps of Big City**
 
@@ -37,7 +37,7 @@ We provide three ways to download our MatrixCity dataset.
 
 **Openxlab**: https://openxlab.org.cn/datasets/bdaibdai/MatrixCity
 
-**Baidu Wangpan**: https://pan.baidu.com/s/187P0e5p1hz9t5mgdJXjL1g#list/path=%2F (password: hqnn)
+**Baidu Netdisk**: https://pan.baidu.com/s/187P0e5p1hz9t5mgdJXjL1g#list/path=%2F (password: hqnn)
 
 
 # Data Color Space
