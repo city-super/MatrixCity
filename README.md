@@ -129,6 +129,10 @@ Please see [Render-Data](MatrixCityPlugin/docs/Render-Data.md) to render custom 
 
 Please see [Export-Camere-Poses](MatrixCityPlugin/docs/Export-Camere-Poses.md) to export camera trajectories from UE to `transforms.json`.
 
+## Exports the point cloud
+
+Please refer to [rgbd2pc.py](https://github.com/city-super/MatrixCity/blob/main/scripts/rgbd2pc.py) to fuse to rgbd images to point cloud ‼️
+
 ## Code Details
 
 We also provide some code details for your convenience in [Code-Details](MatrixCityPlugin/docs/Code-Details.md).
