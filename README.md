@@ -12,6 +12,8 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Release
 
+**Apr. 2024 - Update the script for extracting point clouds from several rgb-depth pairs at [rgb2pc.py](scripts/rgbd2pc.py), which can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).**
+
 **Apr. 2024 - Release depth maps of aerial data in float32 format on Hugging Face and Baidu Netdisk. Update the scripts for loading depth and normal maps.**
 - We recommand that using the depth maps in float32 format for aerial views because the default for EXR is float16, which can represent up to 65504cm and does not effectively represent the depth for aerial views.
 - Add checks for invalid masks in the scripts including the sky and content exceeding the maximum depth range.
@@ -45,6 +47,8 @@ We provide three ways to download our MatrixCity dataset.
 We output depth and normal maps in EXR format, while RGB, diffuse, specular, roughness, and metallic are output in PNG format. All files in EXR format are in linear space, and all images in PNG format are in sRGB space. Please use [gamma correction](https://en.wikipedia.org/wiki/Gamma_correction) for conversion.
 
 # Depth and Normal Map Note
+
+- Our depth maps are **z-depth**, which refers to the distance between a point in the 3D space and the camera along the Z-axis, which is aligned with the camera's direction of view. 
 
 - Our depth maps are rendered with anti-aliasing settings to align with RGB images. However, this may result in artifacts when converting depth maps to point clouds, as discussed in the [issue#4](https://github.com/city-super/MatrixCity/issues/4). We provide the guidance to render depth maps without anti-alias in [Render Data/Depth-1](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth).
 - The depth maps are in EXR format, which defaults to float16 data type with a maximum range of 65504. For depth maps, this means the farthest distance that can be expressed is 65504 cm, so we recommend using the depth maps in float32 format for aerial views. We provide the guidance to export EXR files in float32 format in [Render Data/Depth-2](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth). Also we provide code in [load_data.py](scripts/load_data.py) to identify the invalid part of depth maps in float16 precision.
