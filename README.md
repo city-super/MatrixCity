@@ -48,7 +48,7 @@ We output depth and normal maps in EXR format, while RGB, diffuse, specular, rou
 
 # Depth and Normal Map Note
 
-- Our depth maps are **z-depth**, which refers to the distance between a point in the 3D space and the camera along the Z-axis, which is aligned with the camera's direction of view. 
+- Our depth maps are **Z-depth**, which refers to the distance between a point in the 3D space and the camera along the Z-axis, which is aligned with the camera's direction of view. 
 
 - Our depth maps are rendered with anti-aliasing settings to align with RGB images. However, this may result in artifacts when converting depth maps to point clouds, as discussed in the [issue#4](https://github.com/city-super/MatrixCity/issues/4). We provide the guidance to render depth maps without anti-alias in [Render Data/Depth-1](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth).
 - The depth maps are in EXR format, which defaults to float16 data type with a maximum range of 65504. For depth maps, this means the farthest distance that can be expressed is 65504 cm, so we recommend using the depth maps in float32 format for aerial views. We provide the guidance to export EXR files in float32 format in [Render Data/Depth-2](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth). Also we provide code in [load_data.py](scripts/load_data.py) to identify the invalid part of depth maps in float16 precision.
@@ -95,11 +95,11 @@ We use the same pose coordinate system as original [NeRF repo](https://github.co
     - **test**:  Test set data.
     - **pose/\<block_name\>**: Data splits and pose used in our paper. The unit of position is 100m and the rotation matrix has already been normalized. Please refer to **scripts/generate\_split.py** to generate train/test splits for custom block.
 - **big_city**: Big City Map ($25.3km^2$) data, which has a similar file structure to the **small_city** directory.
-- **big_city_depth**: Depth data in float16 format for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
-- **big_city_depth_flaot32**: Depth data in float32 format for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
+- **big_city_depth**: Depth data in float16 format for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **Z-depth**.
+- **big_city_depth_flaot32**: Depth data in float32 format for the Big City Map which shares the same camera poses as the **big_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **Z-depth**.
 - **aerial_street_fusion**: The aerial and street data of the same area, used in our paper's Section 4.5. Please refer to **scripts/merge\_aerial\_street.py** to merge custom data of aerial and street modality with different resolutions and focals.
-- **small_city_depth**: Depth data in float16 format for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
-- **small_city_depth_float32**: Depth data in float32 format for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **z-depth**.
+- **small_city_depth**: Depth data in float16 format for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **Z-depth**.
+- **small_city_depth_float32**: Depth data in float32 format for the Small City Map which shares the same camera poses as the **small_city** directory. The unit is cm. Please load it with **scripts/load_data.py**. Note that our depth maps are **Z-depth**.
 - **small_city_normal**: Normal data for the Small City Map which shares the same camera poses as the **small_city** directory. Please load it with **scripts/load_data.py**.
 - **small_city_diffuse**: Diffuse data for the Small City Map which shares the same camera poses as the **small_city** directory.
 - **small_city_metallic**: Metallic data for the Small City Map which shares the same camera poses as the **small_city** directory.
