@@ -12,7 +12,7 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Release
 
-**Apr. 2024 - Update the script for extracting point clouds from several rgb-depth pairs at [rgb2pc.py](scripts/rgbd2pc.py), which can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).**
+**Apr. 2024 - Update the script for extracting point clouds from several rgb-depth pairs at [rgbd2pc.py](scripts/rgbd2pc.py), which can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).**
 
 **Apr. 2024 - Release depth maps of aerial data in float32 format on Hugging Face and Baidu Netdisk. Update the scripts for loading depth and normal maps.**
 - We recommand that using the depth maps in float32 format for aerial views because the default for EXR is float16, which can represent up to 65504cm and does not effectively represent the depth for aerial views.
@@ -53,6 +53,11 @@ We output depth and normal maps in EXR format, while RGB, diffuse, specular, rou
 - Our depth maps are rendered with anti-aliasing settings to align with RGB images. However, this may result in artifacts when converting depth maps to point clouds, as discussed in the [issue#4](https://github.com/city-super/MatrixCity/issues/4). We provide the guidance to render depth maps without anti-alias in [Render Data/Depth-1](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth).
 - The depth maps are in EXR format, which defaults to float16 data type with a maximum range of 65504. For depth maps, this means the farthest distance that can be expressed is 65504 cm, so we recommend using the depth maps in float32 format for aerial views. We provide the guidance to export EXR files in float32 format in [Render Data/Depth-2](https://github.com/city-super/MatrixCity/blob/main/MatrixCityPlugin/docs/Render-Data.md#depth). Also we provide code in [load_data.py](scripts/load_data.py) to identify the invalid part of depth maps in float16 precision.
 - The normal maps of the sky portion are invalid, and we provide code in [load_data.py](scripts/load_data.py) to identify the invalid masks.
+
+
+# Export Point Clouds
+
+Please refer to [rgbd2pc.py](https://github.com/city-super/MatrixCity/blob/main/scripts/rgbd2pc.py) to extract point clouds from several rgb-depth pairs ‼️ The generated point clouds can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).
 
 # Pose File Structure
 
@@ -119,7 +124,7 @@ their invaluable help and discussions for the plug-in development.
 
 Please see [Get-Started](MatrixCityPlugin/docs/Get-Started.md) for plugin setup.
 
-##  Generate custom trajectories
+## Generate custom trajectories
 
 Please see [Generate-Trajectory](MatrixCityPlugin/docs/Generate-Trajectory.md) to generate custom trajectories.
 
@@ -129,13 +134,9 @@ Please see [Generate-Trajectory](MatrixCityPlugin/docs/Generate-Trajectory.md) t
 
 Please see [Render-Data](MatrixCityPlugin/docs/Render-Data.md) to render custom data after getting camera trajectories (Provided / Custom).
 
-## Exports camera poses
+## Export camera poses
 
 Please see [Export-Camere-Poses](MatrixCityPlugin/docs/Export-Camere-Poses.md) to export camera trajectories from UE to `transforms.json`.
-
-## Exports the point cloud
-
-Please refer to [rgbd2pc.py](https://github.com/city-super/MatrixCity/blob/main/scripts/rgbd2pc.py) to fuse to rgbd images to point cloud ‼️
 
 ## Code Details
 
