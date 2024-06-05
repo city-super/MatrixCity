@@ -12,6 +12,8 @@ The Chinese University of Hong Kong, Shanghai AI Laboratory
 
 # Release
 
+**June. 2024 - Update the point cloud of the small city extracted from RGB-depth pairs using [rgbd2pc.py](scripts/rgbd2pc.py), which can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).**
+
 **Apr. 2024 - Update the script for extracting point clouds from several rgb-depth pairs at [rgbd2pc.py](scripts/rgbd2pc.py), which can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).**
 
 **Apr. 2024 - Release depth maps of aerial data in float32 format on Hugging Face and Baidu Netdisk. Update the scripts for loading depth and normal maps.**
@@ -56,8 +58,7 @@ We output depth and normal maps in EXR format, while RGB, diffuse, specular, rou
 
 
 # Export Point Clouds
-
-Please refer to [rgbd2pc.py](https://github.com/city-super/MatrixCity/blob/main/scripts/rgbd2pc.py) to extract point clouds from several rgb-depth pairs ‼️ The generated point clouds can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).
+We provide the point clouds of the small city (both aerial and street views). You can also use [rgbd2pc.py](https://github.com/city-super/MatrixCity/blob/main/scripts/rgbd2pc.py) to extract point clouds from any RGB-depth pairs you have‼️ The generated point clouds can be used as the initialization of [3DGS](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/).
 
 # Pose File Structure
 
@@ -105,6 +106,7 @@ We use the same pose coordinate system as original [NeRF repo](https://github.co
 - **small_city_metallic**: Metallic data for the Small City Map which shares the same camera poses as the **small_city** directory.
 - **small_city_roughness**: Roughness data for the Small City Map which shares the same camera poses as the **small_city** directory.
 - **small_city_specular**: Specular data for the Small City Map which shares the same camera poses as the **small_city** directory.
+- **small_city_pointcloud**: Point clouds for the Small City Map (both aerial and street views) can be used for the initialization of 3D-GS. We provide two versions, differing primarily in size.
 
 
 # MatrixCityPlugin
