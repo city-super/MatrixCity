@@ -54,7 +54,13 @@ THIRD_PARTY_INCLUDES_END
 #include "ImageWriteQueue.h"
 #include "MoviePipeline.h"
 #include "MoviePipelineImageQuantization.h"
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
+#include "MoviePipelinePrimaryConfig.h"
+#define GET_MOVIE_PIPELINE_CONFIG() GetPipeline()->GetPipelinePrimaryConfig()
+#else
 #include "MoviePipelineMasterConfig.h"
+#define GET_MOVIE_PIPELINE_CONFIG() GetPipeline()->GetPipelineMasterConfig()
+#endif
 #include "IOpenExrRTTIModule.h"
 #include "Modules/ModuleManager.h"
 #include "MoviePipelineUtils.h"
